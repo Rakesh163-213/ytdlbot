@@ -12,5 +12,5 @@ RUN apk update && apk add --no-cache ffmpeg aria2
 COPY --from=pybuilder /build/.venv/lib/ /usr/local/lib/
 COPY src /app
 WORKDIR /app
-
+EXPOSE 10000
 CMD ["python" ,"main.py"]
