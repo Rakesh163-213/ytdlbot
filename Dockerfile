@@ -9,7 +9,7 @@ RUN apk add --no-cache alpine-sdk python3-dev musl-dev linux-headers
 # Install PDM and dependencies
 RUN pip install pdm
 RUN pdm install
-
+Run pip install gunicorn
 # Runner stage
 FROM python:3.12-alpine AS runner
 WORKDIR /app
