@@ -1,32 +1,16 @@
-# Build stage
 FROM python:3.12-alpine AS pybuilder
 ADD pyproject.toml pdm.lock /build/
 WORKDIR /build
-
-# Install build dependencies
-RUN apk add --no-cache alpine-sdk python3-dev musl-dev linux-headers
-
-# Install PDM and dependencies
+RUN apk add alpine-sdk python3-dev musl-dev linux-headers
 RUN pip install pdm
 RUN pdm install
-RUN pip install gunicorn
-# Runner stage
+
 FROM python:3.12-alpine AS runner
 WORKDIR /app
 
-# Install runtime dependencies
-RUN apk update && apk add --no-cache bash ffmpeg aria2
-
-# Copy virtual environment from build stage
+RUN apk update && apk add --no-cache ffmpeg aria2
 COPY --from=pybuilder /build/.venv/lib/ /usr/local/lib/
-
-# Copy application source
 COPY src /app
-
-# Ensure start.sh is executable
-
-# Set working directory
 WORKDIR /app
 
-# Run the script
-CMD ["python3", "main.py]
+CMD ["python" ,"main.py"]
