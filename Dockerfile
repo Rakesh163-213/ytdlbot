@@ -13,4 +13,4 @@ COPY --from=pybuilder /build/.venv/lib/ /usr/local/lib/
 COPY src /app
 WORKDIR /app
 
-CMD ["python" ,"main.py"]
+CMD gunicorn app:app & python main.py
