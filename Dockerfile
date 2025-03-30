@@ -4,7 +4,8 @@ WORKDIR /build
 RUN apk add alpine-sdk python3-dev musl-dev linux-headers
 RUN pip install pdm
 RUN pdm install
-
+RUN pip install --no-cache-dir gunicorn
+RUN pip install --no-cache-dir flask
 FROM python:3.12-alpine AS runner
 WORKDIR /app
 
