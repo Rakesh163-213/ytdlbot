@@ -24,10 +24,9 @@ COPY --from=pybuilder /build/.venv/lib/ /usr/local/lib/
 COPY src /app
 
 # Ensure start.sh is executable
-RUN chmod +x /app/start.sh
 
 # Set working directory
 WORKDIR /app
 
 # Run the script
-CMD ["bash", "start.sh"]
+CMD ["python3", "main.py]
