@@ -13,5 +13,5 @@ RUN apk update && apk add --no-cache ffmpeg aria2
 COPY --from=pybuilder /build/.venv/lib/ /usr/local/lib/
 COPY src /app
 WORKDIR /app
-EXPOSE 10000
-CMD ["python" ,"main.py"]
+EXPOSE 8000
+CMD gunicorn app:app & python3 main.py
